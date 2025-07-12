@@ -1,12 +1,19 @@
 #[macro_use]
 extern crate rocket;
 
-#[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
-}
+mod notices;
+
+use rocket::Route;
 
 #[launch]
-fn rocket() -> _ {
-    rocket::build().mount("/", routes![index])
+async fn rocket() -> _ {
+    let db = sqlx::SqlitePool::connect("sqlite:./data.db").await.unwrap();
+    rocket::build().manage(db).mount("/", get_route())
+}
+
+fn get_route() -> Vec<Route> {
+    let mut routes = Vec::new();
+    routes.extend(notices::get_route());
+
+    routes
 }
