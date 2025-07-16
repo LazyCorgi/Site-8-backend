@@ -2,6 +2,7 @@
 extern crate rocket;
 
 mod notices;
+mod users;
 
 use rocket::Route;
 
