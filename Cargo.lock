@@ -9,6 +9,7 @@ dependencies = [
  "argon2",
  "chrono",
  "jsonwebtoken",
+ "rand",
  "rocket",
  "serde",
  "serde_json",
