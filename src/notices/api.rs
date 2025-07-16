@@ -30,7 +30,8 @@ pub async fn create_notice(
 
 #[get("/notices")]
 pub async fn get_notices(pool: &State<SqlitePool>) -> Json<Vec<Notice>> {
-    let rows = sqlx::query!(
+    let notices = sqlx::query_as!(
+        Notice,
         r#"
         SELECT id, title, content, author, created_at
         FROM notices
@@ -43,17 +44,6 @@ pub async fn get_notices(pool: &State<SqlitePool>) -> Json<Vec<Notice>> {
         println!("查询失败: {:?}", err);
         vec![]
     });
-
-    let notices: Vec<Notice> = rows
-        .into_iter()
-        .map(|row| Notice {
-            id: row.id,
-            title: row.title,
-            content: row.content,
-            author: row.author,
-            created_at: row.created_at,
-        })
-        .collect();
 
     Json(notices)
 }

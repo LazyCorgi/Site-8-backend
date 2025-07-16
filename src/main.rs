@@ -15,6 +15,7 @@ async fn rocket() -> _ {
 fn get_route() -> Vec<Route> {
     let mut routes = Vec::new();
     routes.extend(notices::get_route());
+    routes.extend(users::get_route());
 
     routes
 }

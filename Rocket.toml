@@ -2,3 +2,5 @@
 address = "127.0.0.1"
 port = 8000
 log_level = "normal"
+
+secret_key = "bf1c59facba3982dad984d723ca5084b785dc06acd2b" # change this in prod.
